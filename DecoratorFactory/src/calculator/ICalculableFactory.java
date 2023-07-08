@@ -1,5 +1,5 @@
 package calculator;
 
 public interface ICalculableFactory {
-    Calculable create(int primaryArg);
+    Calculable create(ComplexNumber arg);
 }

@@ -1,7 +1,15 @@
 package calculator;
 
 public class CalculableFactory implements ICalculableFactory {
-    public Calculable create(int primaryArg) {
-        return new Calculator(primaryArg);
+
+    
+    @Override
+    public Calculable create(ComplexNumber arg) {
+        return new Calculator (arg);
     }
+
+
+
+
+
 }

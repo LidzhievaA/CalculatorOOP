@@ -1,7 +1,8 @@
 package calculator;
 
 public interface Calculable {
-    Calculable sum(int arg);
-    Calculable multi(int arg);
-    int getResult();
+
+    void sum(ComplexNumber number);
+    void multi(ComplexNumber number);
+    ComplexNumber getResult();
 }

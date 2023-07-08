@@ -10,45 +10,46 @@ public class ViewCalculator {
         this.calculableFactory = calculableFactory;
     }
 
-    public void run() {
+    Scanner scanner = new Scanner(System.in);
+
+    void run() {
+         Calculable calculable = calculableFactory.create(getArgument());
         while (true) {
-            int primaryArg = promptInt("Введите первый аргумент: ");
-            Calculable calculator = calculableFactory.create(primaryArg);
-            while (true) {
-                String cmd = prompt("Введите команду (*, +, =) : ");
-                if (cmd.equals("*")) {
-                    int arg = promptInt("Введите второй аргумент: ");
-                    calculator.multi(arg);
-                    continue;
-                }
-                if (cmd.equals("+")) {
-                    int arg = promptInt("Введите второй аргумент: ");
-                    calculator.sum(arg);
-                    continue;
-                }
-                if (cmd.equals("=")) {
-                    int result = calculator.getResult();
-                    System.out.printf("Результат %d\n", result);
+            System.out.print("Операция (+,*,=) : ");
+            String input = scanner.nextLine().toLowerCase();
+            switch (input) {
+                case "+":
+                    calculable.sum(getArgument());
                     break;
-                }
+                case "*":
+                    calculable.multi(getArgument());
+                    break;
+
+                case "=":
+                    System.out.println("Результат: " + calculable. getResult());
+                    System.out.print("Продолжить y/n: ");
+                    String nextCircle = scanner.nextLine().toLowerCase();
+                    if (nextCircle.equals("n")) {
+                        return;
+                    } else {
+                        calculable = calculableFactory.create(getArgument());
+                    }
+                    break;
+
             }
-            String cmd = prompt("Еще посчитать (Y/N)?");
-            if (cmd.equals("Y")) {
-                continue;
-            }
-            break;
         }
     }
 
-    private String prompt(String message) {
-        Scanner in = new Scanner(System.in);
-        System.out.print(message);
-        return in.nextLine();
-    }
-
-    private int promptInt(String message) {
-        Scanner in = new Scanner(System.in);
-        System.out.print(message);
-        return Integer.parseInt(in.nextLine());
+    private ComplexNumber getArgument() {
+        System.out.print("Введите комплексное число: ");
+        String input = scanner.nextLine();
+        while (!input.matches("^[\\d]+\\+[\\d]+[i]$")) {
+            System.out.print(input + " - не комплексное число, введите комплексное число: ");
+            input = scanner.nextLine();
+        }
+        String[] arrayStr = input.split("\\+");
+        String a = arrayStr[0];
+        String b = arrayStr[1].split("[i]")[0];
+        return new ComplexNumber(Integer.parseInt(a), Integer.parseInt(b));
     }
 }

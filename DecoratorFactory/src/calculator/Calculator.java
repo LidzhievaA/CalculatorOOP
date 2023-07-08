@@ -2,26 +2,34 @@ package calculator;
 
 public final class Calculator implements Calculable {
 
-    private int primaryArg;
+    private ComplexNumber complexNumber;
 
-    public Calculator(int primaryArg) {
-        this.primaryArg = primaryArg;
+    
+    public Calculator(ComplexNumber complexNumber) {
+        this.complexNumber = complexNumber;
     }
 
     @Override
-    public Calculable sum(int arg) {
-        primaryArg += arg;
-        return this;
+    public void sum(ComplexNumber complexNumber) {
+        int a = complexNumber.getA() + complexNumber.getA();
+        int b = complexNumber.getB() + complexNumber.getB();
+        complexNumber.setA(a);
+        complexNumber.setB(b);
     }
 
-    @Override
-    public Calculable multi(int arg) {
-        primaryArg *= arg;
-        return this;
+    public void multi(ComplexNumber complexNumber) {
+        int a = complexNumber.getA() * complexNumber.getA() - complexNumber.getB() * complexNumber.getB();
+        int b = complexNumber.getA() * complexNumber.getB() + complexNumber.getB() * complexNumber.getA(); ;
+        complexNumber.setA(a);
+        complexNumber.setB(b);
     }
 
-    @Override
-    public int getResult() {
-        return primaryArg;
+
+
+    public ComplexNumber getResult() {
+        return complexNumber;
     }
+
+
+
 }
